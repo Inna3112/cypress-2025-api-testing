@@ -13,11 +13,12 @@ it('first test', () => {
     //!!!!!!!робити моки треба до виконання тестового сценарію,
     // тому що під час виконання сценарію відбувається запит на сервер
     cy.intercept('GET', '**/tags', { fixture: 'tags.json' })
+    // cy.intercept({ method: 'GET', pathname: 'tags' }, { fixture: 'articles.json' })
     cy.intercept('GET', '**/articles*', { fixture: 'articles.json' })
     cy.loginToApplication()
 })
 
-it.only('modify api response', () => {
+it('modify api response', () => {
     cy.intercept('GET', '**/articles*', req => {
         req.continue( res => {
             res.body.articles[0].favoritesCount = 9999999
