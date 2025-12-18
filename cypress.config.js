@@ -16,6 +16,12 @@ module.exports = defineConfig({
 
       return config;
     },
+    //Стільки спроб має Cypress зробити, якщо тест не пройшов
+    // retries: 1,
+    retries: {
+      runMode: 1,
+      openMode: 0
+    }
   },
   viewportWidth: 1280,
   viewportHeight: 720

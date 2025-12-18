@@ -18,7 +18,7 @@ it('first test', () => {
     cy.loginToApplication()
 })
 
-it('modify api response', () => {
+it('modify api response', { retries: 2 }, () => {
     cy.intercept('GET', '**/articles*', req => {
         req.continue( res => {
             res.body.articles[0].favoritesCount = 9999999
