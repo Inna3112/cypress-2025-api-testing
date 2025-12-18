@@ -1,6 +1,18 @@
 /// <reference types="cypress" />
 
-it('first test', () => {
-    cy.loginToApplication()
+//------------ЗВЕРНИ УВАГУ!!!!!------------------
+//у дашборді під час виконання тестівти можеш бачити у вкладці зліва запити як POST url
+//біля нього зелене або обведене зеленим коло - це значить в першому випадку що запит пішов на сервер,
+//в другому випадку що ми його перехопили і замінили відповідь на свою (стабінг)
+//------------ЗВЕРНИ УВАГУ!!!!!------------------
 
+it('first test', () => {
+    //this we use spying and response stubbing
+    //learn doc here: https://docs.cypress.io/api/commands/intercept
+
+    //!!!!!!!робити моки треба до виконання тестового сценарію,
+    // тому що під час виконання сценарію відбувається запит на сервер
+    cy.intercept('GET', '**/tags', { fixture: 'tags.json' })
+    cy.intercept('GET', '**/articles*', { fixture: 'articles.json' })
+    cy.loginToApplication()
 })
