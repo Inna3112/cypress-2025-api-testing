@@ -28,3 +28,19 @@ it('modify api response', () => {
     cy.loginToApplication()
     cy.get('app-favorite-button').first().should('contain.text', '9999999')
 })
+
+it.only('waiting for apis', () => {
+    //це завжди працюватиме тому що should буде викликатися поки елемент з'явиться на сторінці
+    // cy.loginToApplication()
+    // cy.get('app-article-list').should('contain.text', 'Bondar Academy')
+
+    cy.intercept('GET', '**/articles*').as('artcileApiCall')
+    cy.loginToApplication()
+    cy.wait('@artcileApiCall').then( apiArticleObject => {
+        // console.log(apiArticleObject);
+        expect(apiArticleObject.response.body.articles[0].title).to.contain('Bondar Academy')
+    })
+    cy.get('app-article-list').invoke('text').then( allArticleTexts => {
+        expect(allArticleTexts).to.contain('Bondar Academy')
+    })
+})
