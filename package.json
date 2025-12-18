@@ -4,7 +4,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:smoke": "npx cypress run 'cypress/e2e/firstTest.cy.js'"
+    "cypress:smoke": "npx cypress run 'cypress/e2e/firstTest.cy.js'",
+    "cy_run_dev": "npx cypress open --env username=$USER_NAME,password=$PASSWORD"
   },
   "devDependencies": {
     "cypress": "^15.7.1"

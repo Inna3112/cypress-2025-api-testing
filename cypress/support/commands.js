@@ -30,14 +30,14 @@ Cypress.Commands.add('loginToApplication', () => {
     // cy.get('[placeholder="Email"]').type('innula3112@gmail.com')
     // cy.get('[placeholder="Password"]').type('12345678')
     // cy.contains('button', 'Sign in').click()
-    
+
     cy.request({
-        url: 'https://conduit-api.bondaracademy.com/api/users/login',
+        url: Cypress.env('apiUrl') + '/users/login',
         method: 'POST',
         body: {
             "user": {
-                "email": "innula3112@gmail.com",
-                "password": "12345678"
+                "email": Cypress.env('username'),
+                "password": Cypress.env('password'),
             }
         }
     }).then( response => {

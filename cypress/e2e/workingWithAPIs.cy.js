@@ -45,12 +45,12 @@ it('waiting for apis', () => {
     })
 })
 
-it('delete article', () => {
+it.only('delete article', () => {
     //тут пройдено весь процес - авторизація, створення статті через апі, видалення статті через UI
     cy.loginToApplication()
     cy.get('@accessToken').then(accessToken => {
         cy.request({
-            url: 'https://conduit-api.bondaracademy.com/api/articles/',
+            url: Cypress.env('apiUrl') + '/articles/',
             method: 'POST',
             body: {
                 "article": {
@@ -74,10 +74,10 @@ it('delete article', () => {
     cy.get('app-article-list').should('not.contain.text', 'Test title Cypress')
 })
 
-it.only('api testing', () => {
+it('api testing', () => {
     //Pure API test - without UI interaction
     cy.request({
-        url: 'https://conduit-api.bondaracademy.com/api/users/login',
+        url: Cypress.env('apiUrl') + '/users/login',
         method: 'POST',
         body: {
             "user": {
@@ -90,7 +90,7 @@ it.only('api testing', () => {
         const accessToken = 'Token ' + response.body.user.token
 
         cy.request({
-            url: 'https://conduit-api.bondaracademy.com/api/articles/',
+            url: Cypress.env('apiUrl') + '/articles/',
             method: 'POST',
             body: {
                 "article": {
@@ -107,7 +107,7 @@ it.only('api testing', () => {
         })
 
         cy.request({
-            url: 'https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0',
+            url: Cypress.env('apiUrl') + '/articles?limit=10&offset=0',
             method: 'GET',
             headers: {'Authorization': accessToken}
         }).then( response => {
@@ -116,7 +116,7 @@ it.only('api testing', () => {
             const slugID = response.body.articles[0].slug
 
             cy.request({
-                url: `https://conduit-api.bondaracademy.com/api/articles/${slugID}`,
+                url: `${Cypress.env('apiUrl')}/articles/${slugID}`,
                 method: 'DELETE',
                 headers: {'Authorization': accessToken}
             }).then(response => {
@@ -125,7 +125,7 @@ it.only('api testing', () => {
         })
 
         cy.request({
-            url: 'https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0',
+            url: Cypress.env('apiUrl') + '/articles?limit=10&offset=0',
             method: 'GET',
             headers: {'Authorization': accessToken}
         }).then(response => {

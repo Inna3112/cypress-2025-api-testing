@@ -1,9 +1,9 @@
 const { defineConfig } = require("cypress");
-
+//тоді можна викликати з терміналу npx cypress open --config-file cypress.dev.config.js
 module.exports = defineConfig({
   env: {
-    username: 'innula3112@gmail.com',
-    password: '12345678',
+    username: 'innula3112DEV@gmail.com',
+    password: '12345678DEV',
     apiUrl: 'https://conduit-api.bondaracademy.com/api'
   },
   e2e: {
