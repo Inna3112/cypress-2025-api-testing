@@ -47,19 +47,8 @@ it('waiting for apis', () => {
 
 it('delete article', () => {
     //тут пройдено весь процес - авторизація, створення статті через апі, видалення статті через UI
-    cy.request({
-        url: 'https://conduit-api.bondaracademy.com/api/users/login',
-        method: 'POST',
-        body: {
-            "user": {
-                "email": "innula3112@gmail.com",
-                "password": "12345678"
-            }
-        }
-    }).then(response => {
-        expect(response.status).to.equal(200)
-        const accessToken = 'Token ' + response.body.user.token
-
+    cy.loginToApplication()
+    cy.get('@accessToken').then(accessToken => {
         cy.request({
             url: 'https://conduit-api.bondaracademy.com/api/articles/',
             method: 'POST',
@@ -71,14 +60,12 @@ it('delete article', () => {
                     "tagList": []
                 }
             },
-            headers: {'Authorization': accessToken}
+            headers: {'Authorization': 'Token ' + accessToken}
         }).then( response => {
             expect(response.status).to.equal(201)
             expect(response.body.article.title).to.equal('Test title Cypress')
         })
     })
-
-    cy.loginToApplication()
     cy.contains('Test title Cypress').click()
     cy.intercept('GET', '**/articles*').as('artcileApiCall')
     cy.contains('button', 'Delete Article').first().click()

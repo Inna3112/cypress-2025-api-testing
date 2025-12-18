@@ -25,9 +25,31 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('loginToApplication', () => {
-    cy.visit('/')
-    cy.contains('Sign in').click()
-    cy.get('[placeholder="Email"]').type('innula3112@gmail.com')
-    cy.get('[placeholder="Password"]').type('12345678')
-    cy.contains('button', 'Sign in').click()
- })
+    // cy.visit('/')
+    // cy.contains('Sign in').click()
+    // cy.get('[placeholder="Email"]').type('innula3112@gmail.com')
+    // cy.get('[placeholder="Password"]').type('12345678')
+    // cy.contains('button', 'Sign in').click()
+    
+    cy.request({
+        url: 'https://conduit-api.bondaracademy.com/api/users/login',
+        method: 'POST',
+        body: {
+            "user": {
+                "email": "innula3112@gmail.com",
+                "password": "12345678"
+            }
+        }
+    }).then( response => {
+        expect(response.status).to.equal(200)
+        const accessToken = response.body.user.token
+        cy.wrap(accessToken).as('accessToken')
+        cy.visit('/', {
+            // додаємо токен в локал сторедж перед завантаженням сторінки
+            // це дозволяє уникнути UI авторизації
+            onBeforeLoad(window){
+                window.localStorage.setItem('jwtToken', accessToken)
+            }
+        })
+    })
+})
