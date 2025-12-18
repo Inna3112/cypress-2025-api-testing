@@ -29,7 +29,7 @@ it('modify api response', () => {
     cy.get('app-favorite-button').first().should('contain.text', '9999999')
 })
 
-it.only('waiting for apis', () => {
+it('waiting for apis', () => {
     //це завжди працюватиме тому що should буде викликатися поки елемент з'явиться на сторінці
     // cy.loginToApplication()
     // cy.get('app-article-list').should('contain.text', 'Bondar Academy')
@@ -43,4 +43,47 @@ it.only('waiting for apis', () => {
     cy.get('app-article-list').invoke('text').then( allArticleTexts => {
         expect(allArticleTexts).to.contain('Bondar Academy')
     })
+})
+
+it.only('delete article', () => {
+    //тут пройдено весь процес - авторизація, створення статті через апі, видалення статті через UI
+    cy.request({
+        url: 'https://conduit-api.bondaracademy.com/api/users/login',
+        method: 'POST',
+        body: {
+            "user": {
+                "email": "innula3112@gmail.com",
+                "password": "12345678"
+            }
+        }
+    }).then(response => {
+        expect(response.status).to.equal(200)
+        const accessToken = 'Token ' + response.body.user.token
+
+        cy.request({
+            url: 'https://conduit-api.bondaracademy.com/api/articles/',
+            method: 'POST',
+            body: {
+                "article": {
+                    "title": "Test title Cypress",
+                    "description": "Some description",
+                    "body": "This is a body",
+                    "tagList": []
+                }
+            },
+            headers: {'Authorization': accessToken}
+        }).then( response => {
+            expect(response.status).to.equal(201)
+            expect(response.body.article.title).to.equal('Test title Cypress')
+        })
+    })
+
+    cy.loginToApplication()
+    cy.contains('Test title Cypress').click()
+    cy.intercept('GET', '**/articles*').as('artcileApiCall')
+    cy.contains('button', 'Delete Article').first().click()
+    //НЕ ЗАБУВАЙ ЧЕКАТИ ВИКЛИК api
+    cy.wait('@artcileApiCall')
+    cy.get('app-article-list').should('not.contain.text', 'Test title Cypress')
+
 })
