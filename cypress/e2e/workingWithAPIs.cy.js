@@ -94,8 +94,8 @@ it.only('api testing', () => {
         method: 'POST',
         body: {
             "user": {
-                "email": "cyuser@qqq.com",
-                "password": "Welcome12345"
+                "email": "innula3112@gmail.com",
+                "password": "12345678"
             }
         }
     }).then(response => {
