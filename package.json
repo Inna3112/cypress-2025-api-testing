@@ -11,11 +11,12 @@
     "cy:run:all": "npm run prereport && npx cypress run || true && npm run junit:merge"
   },
   "devDependencies": {
+    "@cypress/grep": "^5.0.1",
     "@faker-js/faker": "^10.1.0",
     "cypress": "^15.7.1",
     "cypress-mochawesome-reporter": "^3.8.4",
     "cypress-multi-reporters": "^2.0.5",
-    "mocha-junit-reporter": "^2.2.1",
-    "junit-merge": "^2.0.0"
+    "junit-merge": "^2.0.0",
+    "mocha-junit-reporter": "^2.2.1"
   }
 }

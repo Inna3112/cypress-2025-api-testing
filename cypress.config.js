@@ -15,6 +15,9 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
 
+      const { plugin: cypressGrepPlugin } = require('@cypress/grep/plugin')
+      cypressGrepPlugin(config)
+
       // implement node event listeners here
       //тоді можна запустити через термінал команду USER_NAME='innula3112@gmail.com' PASSWORD='12345678' npm run cy_run_dev
 

@@ -7,7 +7,7 @@ import { faker } from '@faker-js/faker';
 //в другому випадку що ми його перехопили і замінили відповідь на свою (стабінг)
 //------------ЗВЕРНИ УВАГУ!!!!!------------------
 
-it('first test', () => {
+it('first test',  {tags: '@smoke'}, () => {
     //this we use spying and response stubbing
     //learn doc here: https://docs.cypress.io/api/commands/intercept
 
@@ -19,7 +19,7 @@ it('first test', () => {
     cy.uiLogin()
 })
 
-it('modify api response', { retries: 2 }, () => {
+it('modify api response', { retries: 2, tags: ['@smoke', '@likes'] }, () => {
     cy.intercept('GET', '**/articles*', req => {
         req.continue( res => {
             res.body.articles[0].favoritesCount = 9999999
