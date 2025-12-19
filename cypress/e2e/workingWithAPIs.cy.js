@@ -16,7 +16,7 @@ it('first test', () => {
     cy.intercept('GET', '**/tags', { fixture: 'tags.json' })
     // cy.intercept({ method: 'GET', pathname: 'tags' }, { fixture: 'articles.json' })
     cy.intercept('GET', '**/articles*', { fixture: 'articles.json' })
-    cy.loginToApplication()
+    cy.uiLogin()
 })
 
 it('modify api response', { retries: 2 }, () => {
@@ -26,7 +26,7 @@ it('modify api response', { retries: 2 }, () => {
             res.send(res.body)
         })
     })
-    cy.loginToApplication()
+    cy.uiLogin()
     cy.get('app-favorite-button').first().should('contain.text', '9999999')
 })
 
@@ -36,7 +36,7 @@ it('waiting for apis', () => {
     // cy.get('app-article-list').should('contain.text', 'Bondar Academy')
 
     cy.intercept('GET', '**/articles*').as('artcileApiCall')
-    cy.loginToApplication()
+    cy.uiLogin()
     cy.wait('@artcileApiCall').then( apiArticleObject => {
         // console.log(apiArticleObject);
         expect(apiArticleObject.response.body.articles[0].title).to.contain('Bondar Academy')
