@@ -46,7 +46,7 @@ it('waiting for apis', () => {
     })
 })
 
-it.only('delete article', () => {
+it('delete article', () => {
     //тут пройдено весь процес - авторизація, створення статті через апі, видалення статті через UI
     const articleTitle = faker.person.fullName();
     cy.loginToApplication()

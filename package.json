@@ -1,14 +1,21 @@
 {
   "name": "conduit-cypress",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:smoke": "npx cypress run 'cypress/e2e/firstTest.cy.js'",
-    "cy_run_dev": "npx cypress open --env username=$USER_NAME,password=$PASSWORD"
+    "cy_run_dev": "npx cypress open --env username=$USER_NAME,password=$PASSWORD",
+    "delete:reports": "rm -r cypress/reports/* || true",
+    "prereport": "npm run delete:reports",
+    "junit:merge": "npx junit-merge -d 'cypress/reports/junit' -o 'cypress/reports/junit/results.xml'",
+    "cy:run:all": "npm run prereport && npx cypress run || true && npm run junit:merge"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.1.0",
-    "cypress": "^15.7.1"
+    "cypress": "^15.7.1",
+    "cypress-mochawesome-reporter": "^3.8.4",
+    "cypress-multi-reporters": "^2.0.5",
+    "mocha-junit-reporter": "^2.2.1",
+    "junit-merge": "^2.0.0"
   }
 }
