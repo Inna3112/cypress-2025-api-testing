@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 <testsuites>
-<testsuite name="Root Suite" timestamp="2025-12-19T08:00:31" tests="4" file="cypress/e2e/data-driven.cy.js" time="5.835" failures="0">
+<testsuite name="Root Suite" timestamp="2025-12-19T08:27:58" tests="5" file="cypress/e2e/workingWithAPIs.cy.js" time="10.895" failures="0">
   
-  <testcase name="first test 12" time="2.559" classname="first test 12"></testcase>
+  <testcase name="first test" time="0.954" classname="first test"></testcase>
   
-  <testcase name="first test 123" time="0.852" classname="first test 123"></testcase>
+  <testcase name="modify api response" time="2.291" classname="modify api response"></testcase>
   
-  <testcase name="first test 12345678901234567890" time="1.068" classname="first test 12345678901234567890"></testcase>
+  <testcase name="waiting for apis" time="1.753" classname="waiting for apis"></testcase>
   
-  <testcase name="first test 123456789012345678901" time="1.280" classname="first test 123456789012345678901"></testcase>
+  <testcase name="delete article" time="3.607" classname="delete article"></testcase>
+  
+  <testcase name="api testing" time="2.116" classname="api testing"></testcase>
   
 </testsuite>
 
-<testsuite name="Root Suite" timestamp="2025-12-19T08:00:39" tests="5" file="cypress/e2e/workingWithAPIs.cy.js" time="10.665" failures="0">
+<testsuite name="Root Suite" timestamp="2025-12-19T08:27:49" tests="4" file="cypress/e2e/data-driven.cy.js" time="6.206" failures="0">
   
-  <testcase name="first test" time="0.937" classname="first test"></testcase>
+  <testcase name="first test 12" time="2.941" classname="first test 12"></testcase>
   
-  <testcase name="modify api response" time="2.057" classname="modify api response"></testcase>
+  <testcase name="first test 123" time="0.882" classname="first test 123"></testcase>
   
-  <testcase name="waiting for apis" time="1.778" classname="waiting for apis"></testcase>
+  <testcase name="first test 12345678901234567890" time="1.038" classname="first test 12345678901234567890"></testcase>
   
-  <testcase name="delete article" time="3.505" classname="delete article"></testcase>
-  
-  <testcase name="api testing" time="2.312" classname="api testing"></testcase>
+  <testcase name="first test 123456789012345678901" time="1.253" classname="first test 123456789012345678901"></testcase>
   
 </testsuite>
 
