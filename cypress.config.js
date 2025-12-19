@@ -11,6 +11,8 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
       //тоді можна запустити через термінал команду USER_NAME='innula3112@gmail.com' PASSWORD='12345678' npm run cy_run_dev
+
+      //!!!! енви з cypress.env.json мають пріоритет над цими змінними оточення !!!!
       config.env.username = process.env.USERNAME;
       config.env.password = process.env.PASSWORD
 

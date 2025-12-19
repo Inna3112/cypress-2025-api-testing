@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import { faker } from '@faker-js/faker';
 
 //------------ЗВЕРНИ УВАГУ!!!!!------------------
 //у дашборді під час виконання тестівти можеш бачити у вкладці зліва запити як POST url
@@ -47,6 +48,7 @@ it('waiting for apis', () => {
 
 it.only('delete article', () => {
     //тут пройдено весь процес - авторизація, створення статті через апі, видалення статті через UI
+    const articleTitle = faker.person.fullName();
     cy.loginToApplication()
     cy.get('@accessToken').then(accessToken => {
         cy.request({
@@ -54,24 +56,24 @@ it.only('delete article', () => {
             method: 'POST',
             body: {
                 "article": {
-                    "title": "Test title Cypress",
-                    "description": "Some description",
-                    "body": "This is a body",
+                    "title": articleTitle,
+                    "description": faker.person.jobTitle(),
+                    "body": faker.lorem.paragraph(10),
                     "tagList": []
                 }
             },
             headers: {'Authorization': 'Token ' + accessToken}
         }).then( response => {
             expect(response.status).to.equal(201)
-            expect(response.body.article.title).to.equal('Test title Cypress')
+            expect(response.body.article.title).to.equal(articleTitle)
         })
     })
-    cy.contains('Test title Cypress').click()
+    cy.contains(articleTitle).click()
     cy.intercept('GET', '**/articles*').as('artcileApiCall')
     cy.contains('button', 'Delete Article').first().click()
     //НЕ ЗАБУВАЙ ЧЕКАТИ ВИКЛИК api
     cy.wait('@artcileApiCall')
-    cy.get('app-article-list').should('not.contain.text', 'Test title Cypress')
+    cy.get('app-article-list').should('not.contain.text', articleTitle)
 })
 
 it('api testing', () => {
